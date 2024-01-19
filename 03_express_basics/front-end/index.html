@@ -55,11 +55,9 @@
 
         const data = await res.json();
 
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>");
         console.log({ data });
-        console.log("<<<<<<<<<<<<<<<<<<<<<<<");
 
-        document.querySelector("button").innerText = data.msg + "!!";
+        document.querySelector("button").innerText = data.message + "!!";
       });
   </script>
 </html>
