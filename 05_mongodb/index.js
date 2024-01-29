@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { promises as fs } from "fs";
 import mongoose from "mongoose";
+
 import userRouter from "./routes/userRoutes.js";
 
 dotenv.config({
@@ -13,8 +13,6 @@ dotenv.config({
       : "./envs/development.env",
 });
 
-// import serverConfig from "./configs/serverConfigs.js";
-// console.log(process.env.NODE_ENV);
 const app = express();
 
 mongoose

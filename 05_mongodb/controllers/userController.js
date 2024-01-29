@@ -12,21 +12,16 @@ const createUser = catchAsync(async (req, res) => {
   });
 });
 
-const getUsersList = catchAsync(async (req, res, next) => {
-  try {
-    const users = await User.find();
-    // const users = await User.find().select("+password");
-    // const users = await User.find().select("-email");
-    // const users = await User.find().select("name email");
+const getUsersList = catchAsync(async (req, res) => {
+  const users = await User.find();
+  // const users = await User.find().select("+password");
+  // const users = await User.find().select("-email");
+  // const users = await User.find().select("name email");
 
-    res.status(201).json({
-      message: "Success!",
-      users,
-    });
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
+  res.status(201).json({
+    message: "Success!",
+    users,
+  });
 });
 
 const getOneUser = catchAsync(async (req, res) => {

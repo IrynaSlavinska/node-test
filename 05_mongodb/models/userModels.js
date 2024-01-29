@@ -3,7 +3,6 @@ import userRoles from "../constants/userRoles.js";
 
 const userScema = new Schema(
   {
-    //   name: String,
     name: {
       type: String,
       required: true,
