@@ -1,24 +1,37 @@
 import express from "express";
 import {
   getBooksList,
-  // getOneBook,
+  getOneBook,
   addNewBook,
-  // removeBook,
-  // updateBook,
+  removeBook,
+  updateBook,
+  updateFavorite,
 } from "../controllers/booksControllers.js";
 import validateBody from "../helpers/validateBody.js";
-import { updateBookSchema, createBookSchema } from "../models/booksSchemas.js";
+import { isValidId } from "../middlewares/isValidId.js";
+import {
+  updateBookSchema,
+  createBookSchema,
+  updateFavoriteSchema,
+} from "../models/booksSchemas.js";
 
 const booksRouter = express.Router();
 
 booksRouter.get("/", getBooksList);
 
-// booksRouter.get("/:id", getOneBook);
+booksRouter.get("/:id", isValidId, getOneBook);
 
 booksRouter.post("/", validateBody(createBookSchema), addNewBook);
 
-// booksRouter.put("/:id", validateBody(updateBookSchema), updateBook);
+booksRouter.put("/:id", isValidId, validateBody(updateBookSchema), updateBook);
 
-// booksRouter.delete("/:id", removeBook);
+booksRouter.patch(
+  "/:id/favorite",
+  isValidId,
+  validateBody(updateFavoriteSchema),
+  updateFavorite
+);
+
+booksRouter.delete("/:id", isValidId, removeBook);
 
 export default booksRouter;

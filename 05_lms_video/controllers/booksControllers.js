@@ -4,55 +4,57 @@ import { Book } from "../models/bookModel.js";
 import catchAsync from "../helpers/catchAsync.js";
 
 export const getBooksList = catchAsync(async (req, res) => {
-  const books = await Book.find();
-  res.status(200).json(books);
+  // const result = await Book.find();
+  const result = await Book.find({}, "title");
+  res.status(200).json(result);
 });
 
-// export const getOneBook = async (req, res, next) => {
-//   try {
-//     // console.log(req.params);
-//     const { id } = req.params;
-//     const book = await booksServices.getBookById(id);
-//     if (!book) {
-//       throw HttpError(404, "Not Found");
-//     }
-//     res.status(200).json(book);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+export const getOneBook = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  // const result = await Book.findOne({ _id: id });
+  const result = await Book.findById(id);
+  if (!result) {
+    throw HttpError(404, "Not Found");
+  }
+  res.status(200).json(result);
+});
 
 export const addNewBook = catchAsync(async (req, res) => {
   const result = await Book.create(req.body);
   res.status(201).json(result);
 });
 
-// export const removeBook = async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
-//     const removedBook = await booksServices.removeBook(id);
-//     if (!removedBook) {
-//       throw HttpError(404);
-//     }
-//     res.status(200).json(removedBook);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+export const removeBook = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const removedBook = await Book.findByIdAndDelete(id);
+  if (!removedBook) {
+    throw HttpError(404);
+  }
+  res.status(200).json(removedBook);
+});
 
-// export const updateBook = async (req, res, next) => {
-//   try {
-//     const keys = Object.keys(req.body);
-//     if (keys.length === 0) {
-//       throw HttpError(400, "Body must have at least one field");
-//     }
-//     const { id } = req.params;
-//     const bookToUpdate = await booksServices.updateBook(id, req.body);
-//     if (!bookToUpdate) {
-//       throw HttpError(404);
-//     }
-//     res.status(201).json(bookToUpdate);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+export const updateBook = catchAsync(async (req, res) => {
+  const keys = Object.keys(req.body);
+  if (keys.length === 0) {
+    throw HttpError(400, "Body must have at least one field");
+  }
+  const { id } = req.params;
+  const bookToUpdate = await Book.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  if (!bookToUpdate) {
+    throw HttpError(404);
+  }
+  res.status(201).json(bookToUpdate);
+});
+
+export const updateFavorite = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const bookToUpdate = await Book.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  if (!bookToUpdate) {
+    throw HttpError(404);
+  }
+  res.status(201).json({ message: "Delete success" });
+});
