@@ -1,37 +1,54 @@
 [
   {
-    "id": "u9kgwNWGi3uUUwh0b8V49",
-    "title": "Eloquent JavaScript, Third Edition",
-    "author": "Marijn Haverbeke"
+    "title": "La Peste",
+    "author": "Albert Camus"
   },
   {
-    "id": "YxhM4QDxPeA3SmPHcEZPJ",
-    "title": "Practical Modern JavaScript",
-    "author": "Nicolas Bevacqua"
+    "title": "Le petit prince",
+    "author": "Antoine Marie Jean-Baptiste Roger vicomte de Saint-Exupéry"
   },
   {
-    "id": "zCd_RioNMOBaQwAXnc8Px",
-    "title": "Understanding ECMAScript 6",
-    "author": "Nicholas C. Zakas"
+    "title": "The Old Man and the Sea",
+    "author": "Ernest Miller Hemingway"
   },
   {
-    "id": "ck89qe3HriUDHe09TBoJ8",
-    "title": "Speaking JavaScript",
-    "author": "Axel Rauschmayer"
+    "title": "1984",
+    "author": "George Orwell"
   },
   {
-    "id": "e1Tpn_I3wBkLREY6wG0lb",
-    "title": "Learning JavaScript Design Patterns",
-    "author": "Addy Osmani"
+    "title": "Cien años de soledad",
+    "author": "Gabriel José de la Concordia García Márquez"
   },
   {
-    "id": "Op8ApLTY0-Vn2cR0vDIwG",
-    "title": "You Don't Know JS Yet",
-    "author": "Kyle Simpson"
+    "title": "Gone with the Wind",
+    "author": "Margaret Munnerlyn Mitchell"
   },
   {
-    "id": "CTHE0f1kkWwqS5sL2tI8_",
-    "title": "Rethinking Productivity in Software Engineering",
-    "author": "Caitlin Sadowski, Thomas Zimmermann"
+    "title": " The Adventures of Sherlock Holmes",
+    "author": "Sir Arthur Ignatius Conan Doyle"
+  },
+  {
+    "title": "Hercule Poirot",
+    "author": "Agatha Mary Clarissa"
+  },
+  {
+    "title": "Jane Marple",
+    "author": "Agatha Mary Clarissa"
+  },
+  {
+    "title": "The Hobbit or There and Back Again",
+    "author": "John Ronald Reuel Tolkien"
+  },
+  {
+    "title": "The Lord of the Rings",
+    "author": "John Ronald Reuel Tolkien"
+  },
+  {
+    "title": "Dandelion Wine",
+    "author": "Ray Douglas Bradbury"
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "author": "Jerome David Salinger"
   }
 ]
