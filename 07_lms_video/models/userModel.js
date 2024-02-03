@@ -13,6 +13,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       match: emailRegex,
+      unique: true,
       required: true,
     },
     password: {
@@ -28,3 +29,16 @@ const userSchema = new Schema(
 );
 
 userSchema.post("save", handleMongooseError);
+
+export const registerSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().pattern(emailRegex).required(),
+  password: Joi.string().min(6).required(),
+});
+
+export const loginSchema = Joi.object({
+  email: Joi.string().pattern(emailRegex).required(),
+  password: Joi.string().min(6).required(),
+});
+
+export const User = model("user", userSchema);
