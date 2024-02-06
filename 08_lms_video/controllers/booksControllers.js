@@ -3,14 +3,21 @@ import HttpError from "../helpers/HttpError.js";
 import catchAsync from "../helpers/catchAsync.js";
 
 export const getBooksList = catchAsync(async (req, res) => {
-  // const result = await Book.find();
-  const result = await Book.find({}, "title");
+  const { _id: owner } = req.user;
+  // console.log(req.query);
+  const { page = 1, limit = 10 } = req.query;
+  // візьми номер сторінки, відніми 1 і помнож на ліміт
+  const skip = (page - 1) * limit;
+  // третім параметром у find передаємо опції для пагінації (монгуз)
+  const result = await Book.find({ owner }, "-createdAt -updatedAt", {
+    skip,
+    limit,
+  }).populate("owner", "name email");
   res.status(200).json(result);
 });
 
 export const getOneBook = catchAsync(async (req, res) => {
   const { id } = req.params;
-  // const result = await Book.findOne({ _id: id });
   const result = await Book.findById(id);
   if (!result) {
     throw HttpError(404, "Not Found");
@@ -19,7 +26,9 @@ export const getOneBook = catchAsync(async (req, res) => {
 });
 
 export const addNewBook = catchAsync(async (req, res) => {
-  const result = await Book.create(req.body);
+  console.log(req.user);
+  const { _id: owner } = req.user;
+  const result = await Book.create({ ...req.body, owner });
   res.status(201).json(result);
 });
 

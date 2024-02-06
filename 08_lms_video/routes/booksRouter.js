@@ -9,6 +9,7 @@ import {
 } from "../controllers/booksControllers.js";
 import validateBody from "../helpers/validateBody.js";
 import { isValidId } from "../middlewares/isValidId.js";
+import { authenticate } from "../middlewares/authenticate.js";
 import {
   updateBookSchema,
   createBookSchema,
@@ -17,21 +18,28 @@ import {
 
 const booksRouter = express.Router();
 
-booksRouter.get("/", getBooksList);
+booksRouter.get("/", authenticate, getBooksList);
 
-booksRouter.get("/:id", isValidId, getOneBook);
+booksRouter.get("/:id", authenticate, isValidId, getOneBook);
 
-booksRouter.post("/", validateBody(createBookSchema), addNewBook);
+booksRouter.post("/", authenticate, validateBody(createBookSchema), addNewBook);
 
-booksRouter.put("/:id", isValidId, validateBody(updateBookSchema), updateBook);
+booksRouter.put(
+  "/:id",
+  authenticate,
+  isValidId,
+  validateBody(updateBookSchema),
+  updateBook
+);
 
 booksRouter.patch(
   "/:id/favorite",
+  authenticate,
   isValidId,
   validateBody(updateFavoriteSchema),
   updateFavorite
 );
 
-booksRouter.delete("/:id", isValidId, removeBook);
+booksRouter.delete("/:id", authenticate, isValidId, removeBook);
 
 export default booksRouter;
