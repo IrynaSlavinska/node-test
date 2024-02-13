@@ -1,5 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import gravatar from "gravatar";
+import path from "path";
+import fs from "fs/promises";
 
 import { User } from "../models/userModel.js";
 import HttpError from "../helpers/HttpError.js";
@@ -9,6 +12,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const { SECRET_KEY } = process.env;
+const avatarsDir = path.resolve("public", "avatars");
 
 export const registerCtrl = catchAsync(async (req, res) => {
   const { email, password } = req.body;
@@ -19,8 +23,13 @@ export const registerCtrl = catchAsync(async (req, res) => {
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
+  const avatarURL = gravatar.url(email);
 
-  const newUser = await User.create({ ...req.body, password: hashPassword });
+  const newUser = await User.create({
+    ...req.body,
+    password: hashPassword,
+    avatarURL,
+  });
 
   res.status(201).json({
     email: newUser.email,
@@ -65,5 +74,24 @@ export const getCurrent = catchAsync(async (req, res) => {
   res.json({
     email,
     name,
+  });
+});
+
+export const updateAvatarCtrl = catchAsync(async (req, res) => {
+  const { _id } = req.user;
+  const { path: tempUpload, originalname } = req.file;
+  // const resultUpload = path.resolve(avatarsDir, originalname);
+  // await fs.rename(tempUpload, resultUpload);
+  // const avatarURL = path.resolve("avatars", originalname);
+
+  const filename = `${_id}_${originalname}`;
+  const resultUpload = path.resolve(avatarsDir, filename);
+  await fs.rename(tempUpload, resultUpload);
+  const avatarURL = path.resolve("avatars", filename);
+  await User.findByIdAndUpdate(_id, { avatarURL });
+
+  res.status(200).json({
+    avatarURL,
+    ...req.body,
   });
 });
