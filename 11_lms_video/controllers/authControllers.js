@@ -75,7 +75,7 @@ export const resendVerifyEmailCtrl = catchAsync(async (req, res) => {
   //   throw HttpError(404, "User not found");
   // }
   if (user.verify) {
-    throw HttpError(400, "message":"Verification has already been passed");
+    throw HttpError(400, "Verification has already been passed");
   }
 
   const verifyEmail = {
